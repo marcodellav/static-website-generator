@@ -1,6 +1,6 @@
 import os
 from generate_page import generate_page
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, base_path):
     entries = os.listdir (dir_path_content)
     starting_dest_dir_path = dest_dir_path
     for entry in entries:
@@ -8,8 +8,8 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         if os.path.isfile(entry_path):
             entry_html = entry.replace("md", "html")
             dest_dir_path = os.path.join(dest_dir_path, entry_html)
-            generate_page( entry_path, "template.html", dest_dir_path)
+            generate_page( entry_path, "template.html", dest_dir_path, base_path)
         else:
             dest_dir_path = os.path.join(dest_dir_path, entry)
-            generate_pages_recursive(entry_path, template_path, dest_dir_path)
+            generate_pages_recursive(entry_path, template_path, dest_dir_path, base_path)
             dest_dir_path = starting_dest_dir_path
